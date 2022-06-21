@@ -92,7 +92,7 @@ Vue.createApp({
                 'accept': 'application/xml'
                 }
             })
-            .then(res => window.location.href = "../accounts.html")
+            .then(res => window.location.href = "/web/accounts.html")
             .catch((err) => {
                 if (err.response) {
                     wrong.classList.add("activated")
@@ -113,7 +113,7 @@ Vue.createApp({
                     'content-type':'application/x-www-form-urlencoded'
                     }
                 })
-                .then(res => window.location.href = "../accounts.html")
+                .then(res => window.location.href = "/web/accounts.html")
             })
             .catch((err) => {
                 if (err.response) {
@@ -124,7 +124,7 @@ Vue.createApp({
 
         signOut(){
             axios.post('/api/logout')
-            .then(res => window.location.href = "../index.html")
+            .then(res => window.location.href = "/web/index.html")
         },
     },
     

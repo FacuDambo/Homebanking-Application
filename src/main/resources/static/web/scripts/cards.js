@@ -135,7 +135,7 @@ Vue.createApp({
 
         signOut(){
             axios.post('/api/logout')
-            .then(res => window.location.href = "../index.html")
+            .then(res => window.location.href = "/web/index.html")
         },
 
         disableCard() {

@@ -56,12 +56,12 @@ Vue.createApp({
             axios.post('/api/clients/current/cards',
             `type=${this.cardTypeSelect}&color=${this.cardColorSelect}&cardName=${this.cardNameSelect}`,
             {headers:{'content-type':'application/x-www-form-urlencoded'}})
-            .then(response => window.location.href = "../cards.html")
+            .then(response => window.location.href = "/web/cards.html")
         },
 
         signOut(){
             axios.post('/api/logout')
-            .then(res => window.location.href = "../index.html")
+            .then(res => window.location.href = "/web/index.html")
         }
     },
     
