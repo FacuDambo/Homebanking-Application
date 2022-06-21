@@ -1,0 +1,544 @@
+.transfers-body,
+.own-transaction-body,
+.other-transaction-body {
+    width: 100%;
+    height: calc(100vh - 4rem);
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    place-items: center;
+}
+
+.own-transaction-body,
+.other-transaction-body {
+    justify-content: unset;
+    place-items: unset;
+}
+
+
+
+.transfers-body img {
+    width: 90%;
+    padding: 1rem 2rem;
+}
+
+.transfers-body div {
+    width: 80%;
+}
+
+.transfers-body div h4 {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.8px;
+}
+
+.transfers-body div p {
+    font-size: 0.9rem;
+    text-align: center;
+    font-weight: 600;
+    color: #727272;
+    margin-top: 1rem;
+}
+
+.transaction-texts {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 1rem;
+    font-weight: 600;
+    background: #f1f1f1;
+    border-bottom: 1px solid var(--border-color);
+    width: 100%;
+}
+
+.transaction-texts p {
+    margin-bottom: unset;
+    font-size: 1.6rem;
+    letter-spacing: 0.5px;
+}
+
+.transaction-texts i {
+    font-size: 2rem;
+}
+
+.transaction-form {
+    margin: 0 0 1rem 0;
+    font-size: 0.9rem;
+    display: flex;
+}
+
+.transaction-form .radio-label {
+    display: flex;
+    cursor: pointer;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0.375em;
+}
+
+.transaction-form .radio-label input {
+    position: absolute;
+    left: -9999px;
+}
+
+.transaction-form .radio-label span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    transition: 0.25s ease;
+    border: 1px solid var(--border-color);
+    text-transform: uppercase;
+}
+
+.transaction-form .radio-label .own {
+    border-radius: 10px 0px 0px 10px;
+}
+
+.transaction-form .radio-label .other {
+    border-radius: 0px 10px 10px 0px;
+}
+
+.transaction-form .radio-label span:hover {
+    background-color: #424242;
+    color: white;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.selected {
+    width: 100%;
+    margin: unset;
+    flex: 0 1 auto;
+}
+
+.selected .radio-label {
+    width: 50%;
+    margin-bottom: unset;
+}
+
+.selected .radio-label .own,
+.selected .radio-label .other {
+    width: 100%;
+    border: unset;
+    border-radius: unset;
+    background: #e1e1e1;
+}
+
+.own-transaction-body.activated .transaction-form .radio-label .own,
+.other-transaction-body.activated .transaction-form .radio-label .other {
+    background: var(--side-color);
+    color: white;
+}
+
+.other-body {
+    width: 100%;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.other-transaction-body img,
+.own-transaction-body img {
+    padding: 0 2rem;
+}
+
+.actual-form {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2rem;
+    padding: 2rem 4rem;
+    gap: 25px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #3f3d560d, #3f3d5633);
+    box-shadow: 3px 3px 2px #a6a5b0;
+}
+
+.actual-form>div {
+    gap: 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+.actual-form div select,
+.actual-form div input {
+    border: unset;
+    border-bottom: 2px solid #3F3D56;
+    padding: 5px 0px;
+    background: transparent;
+}
+
+.actual-form div select:focus-visible {
+    outline: unset;
+}
+
+.actual-form div span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+input:focus-visible {
+    outline: unset;
+}
+
+.own-modal .trans-btn, 
+.other-modal .trans-btn,
+.trans-btn {
+    background: transparent;
+    border: 2px solid #3F3D56;
+    border-radius: 10px;
+    padding: 0.3rem;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.3s linear;
+}
+
+.own-modal .trans-btn:hover, .other-modal .trans-btn:hover, .trans-btn:hover {
+    background: #3F3D56;
+    color: white;
+}
+
+.actual-form .own-modal,
+.actual-form .other-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='500' height='1000' preserveAspectRatio='none' viewBox='0 0 500 1000'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1001%26quot%3b)' fill='none'%3e%3crect width='500' height='1000' x='0' y='0' fill='rgba(63%2c 61%2c 86%2c 0.07)'%3e%3c/rect%3e%3cpath d='M0%2c374.159C66.775%2c356.26%2c101.798%2c286.27%2c159.797%2c248.648C217.438%2c211.258%2c308.92%2c216.6%2c338.497%2c154.586C368.008%2c92.711%2c313.078%2c24.093%2c298.883%2c-42.973C285.822%2c-104.683%2c298.676%2c-175.36%2c258.39%2c-223.896C217.923%2c-272.65%2c145.711%2c-272.896%2c87.423%2c-297.735C19.66%2c-326.612%2c-38.673%2c-387.614%2c-112.101%2c-381.779C-189.039%2c-375.665%2c-256.261%2c-324.171%2c-307.398%2c-266.362C-358.84%2c-208.208%2c-384.837%2c-133.703%2c-399.062%2c-57.376C-413.759%2c21.479%2c-421.435%2c104.319%2c-390.258%2c178.225C-358.652%2c253.149%2c-298.982%2c315.658%2c-226.309%2c352.144C-157.174%2c386.854%2c-74.721%2c394.188%2c0%2c374.159' fill='rgba(50%2c 49%2c 69%2c 0.07)'%3e%3c/path%3e%3cpath d='M500 1354.594C578.15 1359.574 658.77 1390.33 730.143 1358.109 804.8399999999999 1324.387 863.3910000000001 1255.674 890.463 1178.318 916.614 1103.593 887.9870000000001 1024.161 874.3009999999999 946.184 861.057 870.725 849.558 796.499 811.752 729.865 767.271 651.467 725.472 551.808 638.06 529.81 550.4 507.749 473.539 590.36 389.478 623.595 314.491 653.242 228.493 658.438 170.644 714.611 110.52699999999999 772.986 76.58100000000002 854.476 66.08999999999997 937.613 55.702999999999975 1019.929 71.44400000000002 1104.843 112.28800000000001 1177.062 151.291 1246.027 215.92899999999997 1296.946 287.966 1329.931 353.998 1360.167 427.522 1349.975 500 1354.594' fill='rgba(76%2c 73%2c 103%2c 0.07)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1001'%3e%3crect width='500' height='1000' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+    background-size: cover;
+    z-index: 1000;
+}
+
+.actual-form .animate-modal-in {
+    animation: modal-in 0.5s ease-in;
+    display: flex;
+}
+
+.actual-form .animate-modal-out {
+    animation: modal-out 0.5s ease-in;
+}
+
+.own-modal .modal-data,
+.other-modal .modal-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 1rem;
+    height: 75%;
+    gap: 10px;
+    text-shadow: 0px 0px 0px black;
+}
+
+.own-modal h3,
+.other-modal h3 {
+    font-weight: 800;
+}
+
+.own-modal .modal-data p,
+.other-modal .modal-data p {
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+}
+
+.own-modal .modal-data p span,
+.other-modal .modal-data p span {
+    font-weight: 400;
+}
+
+.error-box, .success-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.6rem;
+}
+
+.error-box i {
+    font-size: 5rem;
+    color: #9f0000;
+}
+
+.success-box i {
+    font-size: 5rem;
+    color: #009f35;
+}
+
+.error-box button, .success-box button {
+    border: 2px solid #3F3D56;
+    background: transparent;
+    font-size: 1rem;
+    padding: 0.1rem 0.6rem;
+    border-radius: 10px;
+}
+
+
+
+
+/* MODAL LOADER */
+.lds-ring {
+    display: none;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #3F3D56;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #3F3D56 transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+.display-IB {
+    display: inline-block;
+}
+
+
+
+
+/* KEYFRAMES */
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes modal-in {
+    0% {
+        transform: translateX(200%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes modal-out {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(200%);
+    }
+}
+
+
+
+/* ============================================================== M E D I A   Q U E R Y S ==============================================================*/
+@media only screen and (min-width: 425px) {
+    .transfers-body img {
+        height: 70vw;
+        padding: 1rem 2rem;
+    }
+
+    .transfers-body div {
+        width: 70%;
+    }
+
+    .transfers-body div h4 {
+        font-size: 2.3rem;
+        font-weight: 600;
+        text-align: center;
+        letter-spacing: 0.8px;
+    }
+
+    .transaction-form .radio-label span {
+        font-size: 1rem;
+    }
+
+    .transaction-form {
+        margin: 0 0 1rem 1rem;
+    }
+
+    .selected {
+        margin: unset;
+    }
+
+    .other-transaction-body img,
+    .own-transaction-body img {
+        padding: 0 4rem;
+        height: 20rem;
+    }
+
+    .actual-form {
+        margin: 2rem 4rem;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .transfers-body img {
+        height: 50vw;
+    }
+
+    .transfers-body div h4 {
+        font-size: 2.5rem;
+    }
+
+    .transfers-body div p {
+        font-size: 1rem;
+    }
+
+    .transaction-form .radio-label span {
+        padding: 0.5rem 2rem;
+    }
+
+    .actual-form {
+        margin: 2rem 8rem;
+    }
+
+    .actual-form .own-modal,
+    .actual-form .other-modal {
+        position: absolute;
+        height: 100%;
+        border-radius: 10px;
+        z-index: 0;
+    }
+
+    .own-modal .modal-data,
+    .own-modal .modal-data {
+        padding: 3.7rem 5.4rem;
+    }
+
+    @keyframes modal-in {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes modal-out {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .transfers-body {
+        width: 100%;
+        height: calc(100vh - 4rem);
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1.5fr 0.5fr 1fr;
+        gap: 0px 0px;
+        grid-template-areas:
+            "img img . ."
+            "img img text text"
+            "img img select select"
+            "img img . .";
+        padding: 0 5vw;
+    }
+
+    .transfers-body img {
+        grid-area: img;
+        width: 90%;
+        height: 25rem;
+    }
+
+    .transfers-body div {
+        grid-area: text;
+        margin-top: 2rem;
+        width: 90%;
+    }
+
+    .transfers-body div h4 {
+        font-size: 2.8rem;
+    }
+
+    .transfers-body div p {
+        font-size: 1.1rem;
+    }
+
+    .transaction-form {
+        grid-area: select;
+        display: flex;
+    }
+
+    .actual-form {
+        margin: 2rem 12rem;
+    }
+}
+
+@media only screen and (min-width: 1300px) {
+    .transfers-body {
+        padding: 0 15vw;
+    }
+
+    .transfers-body img {
+        width: 90%;
+        height: 40rem;
+    }
+
+    .own-transaction-body,
+    .other-transaction-body {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .other-body {
+        width: 50%;
+    }
+
+    .actual-form {
+        margin: 2rem 12rem 0;
+    }
+
+    .transaction-form.selected {
+        height: 3rem;
+    }
+
+    .other-transaction-body img,
+    .own-transaction-body img {
+        height: calc(100% - 3rem);
+        width: 40%;
+        padding: 0px 12rem 0 2rem;
+    }
+
+    .own-modal,
+    .other-modal {
+        width: 28%;
+    }
+}

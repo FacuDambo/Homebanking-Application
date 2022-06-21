@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Creation</title>
+    <link rel="stylesheet" href="./styles/cards.css">
+</head>
+<body>
+    <div id="app">
+        <form>
+            <fieldset>
+                <label for="loanName">Loan Name:</label>
+                <input type="text" name="loanName" id="loanName" v-model="loanName">
+            </fieldset>
+            <fieldset>
+                <label for="loanAmount">Loan Amount:</label>
+                <input type="number" name="loanAmount" v-model="loanAmount" min="1" @input="resetValue($event)">
+            </fieldset>
+            <fieldset>
+                <label for="loanPayments">Loan Payments:</label>
+                <input type="number" name="loanPayments" id="loanPayments" v-model="loanPayment" min="1" @keyup.enter="addPayment; sortPayments" @input="resetValue($event)">
+                <button @click.prevent="addPayment(); sortPayments">Add Payment</button>
+            </fieldset>
+            <fieldset>
+                <label for="loanPercentage">Loan Percentage:</label>
+                <input type="number" name="loanPercentage" id="loanPercentage" min="1" v-model="loanPercentage" @input="resetValue($event)">
+            </fieldset>
+        </form>
+
+        <fieldset>
+            <label for="removePayment">Select Payment to Remove(if any)</label>
+            <select name="removePayment" id="removePayment" v-model="removePayment">
+                <option v-for="payments in loanPaymentArray">{{payments}}</option>
+            </select>
+            <button @click="removePaymentfunction()">Remove Payment</button>
+        </fieldset>
+    
+        <div>
+            <h3>Loan recap</h3>
+            <p v-show="loanName != ''">Name: {{loanName}}</p>
+            <p v-show="loanAmount != ''">Amount: ${{loanAmount}}</p>
+            <p v-show="loanPercentage != ''">Percentage: {{loanPercentage}}%</p>
+            <p v-show="loanPaymentArray.length != 0">Payments: {{loanPaymentArray.toString()}}</p>
+        </div>
+
+        <div>
+            <button @click="createLoan()">Create Loan</button>
+        </div>
+
+        <div>
+            <p class="hidden" id="created">Loan Created, Page will reload in 5 seconds</p>
+            <p class="hidden" id="error">{{errorMsg}}</p>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="./scripts/create-loan.js"></script>
+</body>
+</html>

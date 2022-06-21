@@ -1,0 +1,312 @@
+:root {
+    --base-height: calc(100vh - 4rem)
+}
+
+
+.landing-page-body, .first-part, .second-part, .third-part {
+    min-height: var(--base-height);
+}
+
+
+/* FIRST PART */
+.first-part {
+    background-image: url(../assets/blob-haikei1.svg);
+    background-size: cover;
+    background-position: right;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 3rem;
+}
+
+.first-part img {
+    width: 90%;
+}
+
+.first-part-text {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.first-part-text h2 {
+    font-size: 1.9rem;
+    line-height: 1.8rem;
+    text-align: center;
+    font-weight: 800;
+}
+
+.first-part-text p {
+    text-align: center;
+    color: #919191;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.first-part-text a {
+    color: #fff;
+    background: #6c63ff;
+    padding: 0.6rem 1.5rem;
+    border-radius: 20px;
+    box-shadow: 2px 2px 3px 0px #3f3d5680;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.5s;
+}
+
+.first-part-text a:hover {
+    color: #fff;
+    background: #6c63ff82;
+    box-shadow: 1px 1px 2px 0px #3f3d5680;
+}
+
+
+
+/* SECOND PART */
+.second-part {
+    background-image: url(../assets/blob-haikei3.svg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 1rem 0;
+    margin: 1rem 0;
+}
+
+.sp-box, .steps {
+    width: 16rem;
+    height: 14rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ffffffdb;
+    border-radius: 10px;
+    backdrop-filter: blur( 9px );
+    padding: 1rem;
+    gap: 1rem;
+    border: 2px solid #ababab4d;
+    box-shadow: 0 0 20px rgb(63 61 88 / 15%);
+}
+
+.sp-box div {
+    margin-left: 16px;
+}
+
+.sp-box img {
+    width: 60%;
+    height: 6rem;
+}
+
+.sp-box p, .steps p{
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    line-height: 1rem;
+}
+
+.sp-box h4 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 0.2rem;
+}
+
+/* THIRD PART */
+.third-part {
+    background-image: url(../assets/blob-haikei6.svg);
+    background-position: left;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 0;
+}
+
+.steps {
+    text-align: center;
+    font-weight: 600;
+}
+
+.steps div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 2rem;
+}
+
+.steps div img {
+    width: 8rem;
+    height: 8rem;
+}
+
+.steps::before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    width: 0.2rem;
+    height: 1.1rem;
+    background: #e5e5e6;
+}
+
+.steps:last-child::before {
+    content: unset;
+}
+
+.log-in-btn {
+    text-transform: uppercase;
+    padding: 0.2rem 1rem;
+    background: #6c63ff;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    transition: 0.5s;
+}
+
+.log-in-btn:hover {
+    background: #3f3d56;
+    color: white;
+}
+
+
+@media only screen and (min-width: 425px){
+    .second-part {
+        background-image: url(../assets/blob-haikei7.svg);
+    }
+
+    .first-part img {
+        width: 20rem;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .first-part {
+        background-image: url(../assets/blob-haikei8.svg);
+    }
+
+    .first-part img {
+        width: 25rem;
+    }
+
+    .third-part {
+        background-image: url(../assets/blob-haikei5.svg);
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .steps:nth-child(1)::before, .steps:nth-child(3)::before {
+        bottom: unset;
+        right: -20px;
+        width: 1.1rem;
+        height: 0.2rem;
+    }
+
+    .steps:nth-child(2)::before {
+        bottom: -27px;
+        left: -12px;
+        width: 0.2rem;
+        height: 2rem;
+        transform: rotate(45deg);
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    .second-part {
+        background-image: url(../assets/blob-haikei9.svg);
+    }
+
+    .steps:nth-child(2)::before {
+        bottom: unset;
+        right: -20px;
+        left: unset;
+        width: 1.1rem;
+        height: 0.2rem;
+        transform: unset;
+    }
+
+    .steps:nth-child(3)::before {
+        right: unset;
+        bottom: -27px;
+        left: -12px;
+        width: 0.2rem;
+        height: 2rem;
+        transform: rotate(45deg);
+    }
+}
+
+@media only screen and (min-width: 1072px) {
+    .first-part {
+        background-image: url(../assets/wave-haikei.svg);
+        gap: 8rem;
+        background-position: bottom;
+    }
+
+    .first-part-text {
+        width: 35%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .second-part {
+        background-image: url(../assets/blob-haikei10.svg);
+        min-height: 70vh;
+    }
+
+    .third-part {
+        min-height: 60vh;
+        background-position: bottom;
+    }
+
+    .steps:nth-child(3)::before {
+        bottom: unset;
+        right: -20px;
+        left: unset;
+        width: 1.1rem;
+        height: 0.2rem;
+        transform: unset;
+    }
+}
+
+@media only screen and (min-width: 1300px) {
+    .first-part {
+        background-position: bottom;
+    }
+
+    .sp-box, .steps {
+        width: 18rem;
+        height: 16rem;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .first-part {
+        background-position: bottom;
+        background-image: url(../assets/blob-haikei13.svg);
+        justify-content: space-between;
+        padding: 4rem 0 1.5rem;
+        gap: unset;
+    }
+
+    .first-part img {
+        width: 30rem;
+    }
+
+    .second-part {
+        background-image: url(../assets/blob-haikei11.svg);
+        min-height: 80vh;
+        background-size: 80%;
+    }
+
+    .third-part {
+        background-image: url(../assets/blob-haikei12.svg);
+        min-height: 80vh;
+    }
+}

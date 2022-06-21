@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homebanking - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./assets/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/accounts.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="default-body" id="body-pd">
+            <header class="header" id="header">
+                <div class="header_toggle">
+                    <i class='material-symbols-rounded' id="header-toggle" @click="toggleNavbar()">menu</i>
+                </div>
+                <div class="header_info">
+                    <i class="material-symbols-rounded">account_circle</i>
+                    <div class="d-flex flex-column">
+                        <span>{{userName}}</span>
+                        <span>{{userEmail}}</span>
+                    </div>
+                </div>
+            </header>
+            <div class="l-navbar" id="nav-bar">
+                <nav class="nav">
+                    <div> <a href="./index.html" class="nav_logo"> <img src="./assets/mtn.svg" alt="mtn"
+                        class="header-icon"> <span class="nav_logo-name">Patagonia Bank</span> </a>
+                        <div class="nav_list">
+                            <a href="./index.html" class="nav_link">
+                                <i class='material-symbols-rounded'>home</i>
+                                <span class="nav_name">Home</span>
+                            </a>
+                            <a href="#" class="nav_link">
+                                <i class='material-symbols-rounded'>grid_view</i>
+                                <span class="nav_name">Dashboard</span>
+                            </a>
+                            <a href="./account.html" class="nav_link">
+                                <i class='material-symbols-rounded'>currency_exchange</i>
+                                <span class="nav_name">Transactions</span>
+                            </a>
+                            <a href="./cards.html" class="nav_link">
+                                <i class="material-symbols-rounded">credit_card</i>
+                                <span class="nav_name">Cards</span>
+                            </a>
+                            <a href="./transfers.html" class="nav_link">
+                                <i class='material-symbols-rounded'>payments</i>
+                                <span class="nav_name">Transfers</span>
+                            </a>
+                            <a href="./loan-application.html" class="nav_link">
+                                <i class="material-symbols-rounded">real_estate_agent</i>
+                                <span class="nav_name">Loans</span>
+                            </a>
+                            <a href="" class="nav_link">
+                                <i class='material-symbols-rounded'>support_agent</i>
+                                <span class="nav_name">Support</span>
+                            </a>
+                        </div>
+                    </div> <span href="" class="nav_link" @click="signOut()"> <i class='material-symbols-rounded'>logout</i> <span
+                            class="nav_name">SignOut</span> </span>
+                </nav>
+            </div>
+
+            <div class="loader-index loader--active">
+                <div class="loader__icon">
+                    <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px"
+                        viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+                        <path opacity="0.2" fill="#fff"
+                            d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z">
+                        </path>
+                        <path fill="#fff"
+                            d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0C22.32,8.481,24.301,9.057,26.013,10.047z">
+                        </path>
+                        <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20"
+                            to="360 20 20" dur="0.5s" repeatCount="indefinite"></animateTransform>
+                    </svg>
+                </div>
+                <div class="loader__tile"></div>
+                <div class="loader__tile"></div>
+                <div class="loader__tile"></div>
+                <div class="loader__tile"></div>
+                <div class="loader__tile"></div>
+            </div>
+
+            <div id="account-main-content">
+                <div id="account-dashboard">
+                    <div class="dashboard-data">
+                        <span>Welcome {{name}}</span>
+                        <span>{{currentDate.toLocaleString()}}</span>
+                    </div>
+
+                    <div class="balance-box fade-in">
+                        <div class="dashboard-balance" v-for="account in clientAccounts" :class="{'active-account': account.id == accountID}" :id="'id-' + account.id">
+                            <span :class="'title' + account.id">Your Balance:</span>
+                            <span :class="'balance' + account.id">{{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(account.balance)}}</span>
+                            <span @click="toggleAccountSettings(account.id)">{{account.number}} <i class="material-symbols-rounded">delete</i></span>
+                            <span :class="'accountType' + account.id">{{account.accountType}}</span>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span @click="getAccountOnClick(account)" class="see-transactions" :id="'transaction' + account.id">See transactions</span>
+                                <a :href="'http://localhost:8080/web/account.html?id=' + account.id" :class="'anchor' + account.id">More info</a>
+                            </div>
+                            <button class="delete-btn hidden" :id="'button' + account.id" @click="disableAccount(account.id)">Delete account</button>
+                        </div>
+
+                        <div v-if="clientAccounts.length == 1" class="no-accounts" @click="createAccountView(1)">
+                            <div id="noAccount1" class="hasAccount">
+                                <i class="material-symbols-rounded">add_circle</i>
+                                <span>Add account</span>
+                            </div>
+
+                            <div class="select-account hidden" id="selectAccount1">
+                                <span>Select account type</span>
+                                <form @change.prevent="createAccount(accountType)">
+                                    <label>
+                                        <input type="radio" name="accountType" value="SAVING" v-model="accountType" class="hidden">
+                                        <span>SAVING</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="accountType" value="CHECKING" v-model="accountType" class="hidden">
+                                        <span>CHECKING</span>
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
+                        <div v-if="clientAccounts.length == 1" class="no-accounts" @click="createAccountView(2)">
+                            <div id="noAccount2" class="hasAccount">
+                                <i class="material-symbols-rounded">add_circle</i>
+                                <span>Add account</span>
+                            </div>
+
+                            <div class="select-account hidden" id="selectAccount2">
+                                <span>Select account type</span>
+                                <form @change.prevent="createAccount(accountType)">
+                                    <label>
+                                        <input type="radio" name="accountType" value="SAVING" v-model="accountType" class="hidden">
+                                        <span>SAVING</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="accountType" value="CHECKING" v-model="accountType" class="hidden">
+                                        <span>CHECKING</span>
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div v-if="clientAccounts.length == 2" class="no-accounts" @click="createAccountView(3)">
+                            <div id="noAccount3" class="hasAccount">
+                                <i class="material-symbols-rounded">add_circle</i>
+                                <span>Add account</span>
+                            </div>
+
+                            <div class="select-account hidden" id="selectAccount3">
+                                <span>Select account type</span>
+                                <form @change.prevent="createAccount(accountType)">
+                                    <label>
+                                        <input type="radio" name="accountType" value="SAVING" v-model="accountType" class="hidden">
+                                        <span>SAVING</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="accountType" value="CHECKING" v-model="accountType" class="hidden">
+                                        <span>CHECKING</span>
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="total-transactions scale-in-center">
+                        <form>
+                            <select name="trans" id="trans" v-model="getDate" @change="changeTransactionData">
+                                <option selected>All values</option>
+                                <option>3 days</option>
+                                <option>7 days</option>
+                                <option>30 days</option>
+                            </select>
+                        </form>
+                        <div>
+                            <span>Transactions</span>
+                            <span>{{filterTransactions.length}}</span>
+                        </div>
+                        <div>
+                            <span>Spent</span>
+                            <span>{{totalSpent}}</span>
+                        </div>
+                        <div>
+                            <span>Deposited</span>
+                            <span>{{totalEarned}}</span>
+                        </div>
+                        <div>
+                            <span>Remaining</span>
+                            <span>{{balanceActual}}</span>
+                        </div>
+                    </div>
+
+                    <div class="total-spent-category" @wheel="scrollHorizontally($event, '.total-spent-category')">
+                        <div v-if="allTransactions.some(e => e.category == 'Deposit')" class="slide-in-right">
+                            <div>
+                                <i class="material-symbols-rounded">payments</i>
+                                <span>Deposits</span>
+                            </div>
+                            <span>{{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(getCategoryTotal("Deposit"))}}</span>
+                        </div>
+                        <div v-if="allTransactions.some(e => e.category == 'Shopping')" class="slide-in-right">
+                            <div>
+                                <i class="material-symbols-rounded">shopping_cart</i>
+                                <span>Shopping</span>
+                            </div>
+                            <span>{{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(getCategoryTotal("Shopping"))}}</span>
+                        </div>
+                        <div v-if="allTransactions.some(e => e.category == 'Gaming')" class="slide-in-right">
+                            <div>
+                                <i class="material-symbols-rounded">stadia_controller</i>
+                                <span>Gaming</span>
+                            </div>
+                            <span>{{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(getCategoryTotal("Gaming"))}}</span>
+                        </div>
+                        <div v-if="allTransactions.some(e => e.category == 'Taxes')" class="slide-in-right">
+                            <div>
+                                <i class="material-symbols-rounded">calendar_month</i>
+                                <span>Taxes</span>
+                            </div>
+                            <span>{{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(getCategoryTotal("Taxes"))}}</span>
+                        </div>
+                        <div v-if="allTransactions.some(e => e.category == 'Health')" class="slide-in-right">
+                            <div>
+                                <i class="material-symbols-rounded">health_and_safety</i>
+                                <span>Health</span>
+                            </div>
+                            <span>{{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(getCategoryTotal("Health"))}}</span>
+                        </div>
+                        <div v-if="allTransactions.some(e => e.category == 'Other')" class="slide-in-right">
+                            <div>
+                                <i class="material-symbols-rounded">more_horiz</i>
+                                <span>Other</span>
+                            </div>
+                            <span>{{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(getCategoryTotal("Other"))}}</span>
+                        </div>
+                        <div v-if="allTransactions.some(e => e.category == 'Loan')" class="slide-in-right">
+                            <div>
+                                <i class="material-symbols-rounded">real_estate_agent</i>
+                                <span>Loan</span>
+                            </div>
+                            <span>{{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(getCategoryTotal("Loan"))}}</span>
+                        </div>
+                        <div v-if="allTransactions.some(e => e.category == 'Groceries')" class="slide-in-right">
+                            <div>
+                                <i class="material-symbols-rounded">shopping_basket</i>
+                                <span>Groceries</span>
+                            </div>
+                            <span>{{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(getCategoryTotal("Groceries"))}}</span>
+                        </div>
+                        <div v-else-if="finalArray.length < 4" class="no-transactions" class="slide-in-right">
+                            You will see the rest of your transactions by category here
+                        </div>
+
+                        <div v-else-if="finalArray.length == 0" class="no-transactions" class="slide-in-right">
+                            You will see your transactions by category in this section
+                        </div>
+                    </div>
+
+                    
+                    <div class="loan-box" v-if="loans.length > 0" @wheel="scrollHorizontally($event, '.loan-box')" >
+                        <div class="loan" v-for="loan in loans">
+                            <p>Type: <span> {{loan.name}}</span>
+                                <i class="material-symbols-rounded" v-if="loan.name == 'Mortgage'">house</i>
+                                <i class="material-symbols-rounded" v-if="loan.name == 'Personal'">person</i>
+                                <i class="material-symbols-rounded" v-if="loan.name == 'Car'">directions_car</i>
+                            </p>
+                            <p>Amount: <span> {{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(loan.amount)}}</span></p>
+                            <p>Payments: <span> {{loan.payments}}</span></p>
+                        </div>
+                    </div>
+
+                    <div v-else class="no-loans">
+                        <p>You don't have any loans requested</p>
+                        <p class="mb-0">Please go to the <a href="./loans.html">Loans Page</a></p>
+                    </div>
+                    
+                </div>
+
+                <div class="transactions">
+                    <div>
+                        <p>Transactions</p>
+                        <div class="category-transactions">
+                            <div class="categ-box" v-for="transactions in finalArray" v-if="finalArray.length > 0">
+                                <div class="transaction">
+                                    <i class="material-symbols-rounded" v-if="transactions.category === 'Groceries'">shopping_basket</i>
+                                    <i class="material-symbols-rounded" v-if="transactions.category === 'Health'">health_and_safety</i>
+                                    <i class="material-symbols-rounded" v-if="transactions.category === 'Shopping'">shopping_cart</i>
+                                    <i class="material-symbols-rounded" v-if="transactions.category === 'Gaming'">stadia_controller</i>
+                                    <i class="material-symbols-rounded" v-if="transactions.category === 'Taxes'">calendar_month</i>
+                                    <i class="material-symbols-rounded" v-if="transactions.category === 'Deposit'">payments</i>
+                                    <i class="material-symbols-rounded" v-if="transactions.category === 'Other'">more_horiz</i>
+                                    <i class="material-symbols-rounded" v-if="transactions.category === 'Loan'">real_estate_agent</i>
+                                    <div class="d-flex flex-column">
+                                        <span>{{transactions.category}}</span>
+                                        <span>{{transactions.descripcion}}</span>
+                                    </div>
+                                </div>
+                                <span :class="transactions.type === 'DEBIT' ? 'debit' : 'credit'">{{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(transactions.amount)}}</span>
+                            </div>
+
+                            <div v-else class="no-transactions-box">
+                                You will see your transactions here
+                            </div>
+                        </div>
+                    </div>
+                    <div class="advertisement">
+                        <img src="./assets/undraw_world_re_768g.svg" alt="drawing">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="./scripts/accounts.js"></script>
+</body>
+
+</html>

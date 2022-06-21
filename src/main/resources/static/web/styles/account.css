@@ -1,0 +1,233 @@
+#account-main-content {
+    margin: 0 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-balance:last-child {
+    margin: unset;
+    margin: 0 0.5rem 0.5rem;
+}
+
+.dashboard-balance {
+    height: 198px;
+    padding: 2.8rem 1.8rem;
+}
+
+.dashboard-datas, .dashboard-data-empty {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0.5rem 2rem;
+}
+
+.dashboard-datas>div span:nth-child(1) {
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+.dashboard-datas>div span:nth-child(2) {
+    font-size: 0.8rem;
+}
+
+
+.dashboard-data-empty > div {
+    gap: 10px;
+}
+.dashboard-data-empty > div span:nth-child(1) {
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: 0.8px;
+    line-height: 30px;
+}
+.dashboard-data-empty > div span:nth-child(2) {
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.no-transactions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    justify-content: space-between;
+    margin-top: 3rem;
+}
+.no-transactions p {
+    font-size: 1.5rem;
+}
+.no-transactions span {
+    font-size: 0.9rem;
+    width: 70%;
+}
+.no-transactions img {
+    width: 100%;
+    height: 12rem;
+}
+
+
+.balance-box {
+    width: 100%;
+    margin: unset;
+    max-height: 12.5rem;
+}
+
+.balance-span {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.account-transactions {
+    margin: 2rem 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex: 1;
+}
+
+.transaction-box {
+    display: grid;
+    grid-template-columns: 0fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-auto-rows: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas: "icon-trans cat-des mon-date";
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #dedede;
+    flex: 0;
+}
+
+.img-container {
+    display: flex;
+}
+.img-container img{
+    width: 100%;
+    padding: 1rem 2rem 0;
+    height: 15rem;
+}
+.icon-trans {
+    grid-area: icon-trans;
+    padding-right: 1rem;
+}
+
+.transaction-icon {
+    background: linear-gradient(0deg, #2d2b3d, #5e5b80);
+    padding: 0.5rem;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 1.3rem;
+}
+
+.transaction-icon::before {
+    margin-top: 5px;
+}
+
+.cat-des {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "cat"
+        "des";
+    grid-area: cat-des;
+    align-items: center;
+}
+
+.cat {
+    grid-area: cat;
+    font-weight: 600;
+}
+
+.des {
+    grid-area: des;
+    color: #adb5bd;
+    font-size: 0.9rem;
+}
+
+.mon-date {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 0.8fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "mon"
+        "date";
+    grid-area: mon-date;
+    justify-items: end;
+    align-items: center;
+}
+
+.mon {
+    grid-area: mon;
+    font-weight: 600;
+}
+
+.date {
+    grid-area: date;
+    font-size: 0.7rem;
+    align-items: flex-end;
+    color: #adb5bd;
+}
+.date span:nth-child(2) {
+    font-size: 0.7rem;
+    color: #000;
+    text-align: end;
+}
+.date span:nth-child(2) span {
+    color: #108d00;
+    font-weight: 600;
+}
+
+
+@media only screen and (min-width: 425px) {
+    .no-transactions img {
+        height: 16rem;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    #account-main-content {
+        margin: 0 2rem;
+    }
+
+    .no-transactions img {
+        height: 20rem;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+
+    #account-main-content {
+        margin: 0 4rem;
+    }
+    .no-transactions p {
+        font-size: 2rem;
+    }
+
+    .no-transactions span {
+        font-size: 1.2rem;
+        width: 70%;
+    }
+
+    .mon {
+        font-size: 1.15rem;
+    }
+
+    .date {
+        font-size: 0.8rem;
+    }
+    .date span:nth-child(2) {
+        font-size: 0.8rem;
+    }
+}
+
+@media only screen and (min-width: 1300px) {
+    #account-main-content {
+        margin: 0 6rem;
+    }
+}

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patagonia Bank - Cards</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./assets/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/cards.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="default-body" id="body-pd">
+            <header class="header" id="header">
+                <div class="header_toggle">
+                    <i class='material-symbols-rounded' id="header-toggle" @click="toggleNavbar()">menu</i>
+                </div>
+                <div class="header_info">
+                    <i class="material-symbols-rounded">account_circle</i>
+                    <div class="d-flex flex-column">
+                        <span>{{userName}}</span>
+                        <span>{{userEmail}}</span>
+                    </div>
+                </div>
+            </header>
+            <div class="l-navbar" id="nav-bar">
+                <nav class="nav">
+                    <div> <a href="./index.html" class="nav_logo"> <img src="./assets/mtn.svg" alt="mtn"
+                        class="header-icon"> <span class="nav_logo-name">Patagonia Bank</span> </a>
+                        <div class="nav_list">
+                            <a href="./index.html" class="nav_link">
+                                <i class='material-symbols-rounded'>home</i>
+                                <span class="nav_name">Home</span>
+                            </a>
+                            <a href="./accounts.html" class="nav_link">
+                                <i class='material-symbols-rounded'>grid_view</i>
+                                <span class="nav_name">Dashboard</span>
+                            </a>
+                            <a href="./account.html" class="nav_link">
+                                <i class='material-symbols-rounded'>currency_exchange</i>
+                                <span class="nav_name">Transactions</span>
+                            </a>
+                            <a href="#" class="nav_link">
+                                <i class="material-symbols-rounded">credit_card</i>
+                                <span class="nav_name">Cards</span>
+                            </a>
+                            <a href="./transfers.html" class="nav_link">
+                                <i class='material-symbols-rounded'>payments</i>
+                                <span class="nav_name">Transfers</span>
+                            </a>
+                            <a href="./loan-application.html" class="nav_link">
+                                <i class="material-symbols-rounded">real_estate_agent</i>
+                                <span class="nav_name">Loans</span>
+                            </a>
+                            <a href="" class="nav_link">
+                                <i class='material-symbols-rounded'>support_agent</i>
+                                <span class="nav_name">Support</span>
+                            </a>
+                        </div>
+                    </div> <span href="" class="nav_link" @click.stop="signOut()"> <i class='material-symbols-rounded'>logout</i> <span class="nav_name">SignOut</span> </span>
+                </nav>
+            </div>
+
+            <div class="loader-index loader--active">
+                <div class="loader__icon">
+                    <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px"
+                        viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+                        <path opacity="0.2" fill="#fff"
+                            d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z">
+                        </path>
+                        <path fill="#fff"
+                            d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0C22.32,8.481,24.301,9.057,26.013,10.047z">
+                        </path>
+                        <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20"
+                            to="360 20 20" dur="0.5s" repeatCount="indefinite"></animateTransform>
+                    </svg>
+                </div>
+                <div class="loader__tile"></div>
+                <div class="loader__tile"></div>
+                <div class="loader__tile"></div>
+                <div class="loader__tile"></div>
+                <div class="loader__tile"></div>
+            </div>
+
+            <div class="bank-card-body">
+                <div class="card-selection">
+                    <div class="card-texts">
+                        <p>Cards List</p>
+                        <i class="material-symbols-rounded">credit_card</i>
+                    </div>
+                    <div v-for="cards in allCards" class="card-select" :class="{'card-select-active': cards.id == cardID, 'disabled-card': currentDate > new Date(cards.thruDate)}"
+                        @click="changeCardData(cards.cardHolder, cards.cardName, cards.cardType, cards.number, cards.cardColor, cards.cvv, cards.fromDate, cards.thruDate, cards.id)">
+                        <div class="card-select-text">
+                            <span>{{cards.cardName}}</span>
+                            <span>{{cards.cardType}}</span>
+                        </div>
+                        <div class="card-preview"
+                            :class="{'silver-pv': cards.cardColor == 'SILVER' && currentDate < new Date(cards.thruDate), 'golden-pv': cards.cardColor == 'GOLD' && currentDate < new Date(cards.thruDate), 'titanium-pv': cards.cardColor == 'TITANIUM' && currentDate < new Date(cards.thruDate), 'color-active': cards.id == cardID, 'disabled-card-preview': currentDate > new Date(cards.thruDate)}">
+                            <span>{{cardPreview(cards.number)}}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
+                                viewBox="0 0 24 24" style=" fill:#000000d6;" v-if="getCardType(cards.number) == 5">
+                                <path
+                                    d="M20,4H4C2.895,4,2,4.895,2,6v12c0,1.105,0.895,2,2,2h16c1.105,0,2-0.895,2-2V6C22,4.895,21.105,4,20,4z M15,16 c-1.202,0-2.267-0.541-3-1.38C11.267,15.459,10.202,16,9,16c-2.209,0-4-1.791-4-4c0-2.209,1.791-4,4-4c1.202,0,2.267,0.541,3,1.38 C12.733,8.541,13.798,8,15,8c2.209,0,4,1.791,4,4C19,14.209,17.209,16,15,16z">
+                                </path>
+                            </svg>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
+                                viewBox="0 0 50 50" style=" fill:#000000d6;" v-if="getCardType(cards.number) == 4">
+                                <path
+                                    d="M 5 7 C 2.242188 7 0 9.242188 0 12 L 0 38 C 0 40.757813 2.242188 43 5 43 L 45 43 C 47.757813 43 50 40.757813 50 38 L 50 12 C 50 9.242188 47.757813 7 45 7 Z M 29.6875 19.40625 C 31.050781 19.40625 32.46875 19.96875 32.46875 19.96875 L 31.96875 22.40625 C 31.96875 22.40625 30.890625 21.6875 29.9375 21.6875 C 28.46875 21.6875 27.9375 22.167969 27.9375 22.8125 C 27.9375 24.074219 32.03125 24.296875 32.03125 27.125 C 32.03125 29.476563 29.113281 31.09375 27 31.09375 C 24.886719 31.09375 23.78125 30.46875 23.78125 30.46875 L 24.3125 28.09375 C 24.3125 28.09375 25.417969 28.75 27.125 28.75 C 28.828125 28.75 29.0625 28.023438 29.0625 27.71875 C 29.0625 25.914063 25 26.417969 25 22.90625 C 25 20.964844 26.585938 19.40625 29.6875 19.40625 Z M 16.46875 19.625 L 19.625 19.625 L 15.125 30.75 L 11.875 30.75 L 9.5 21.75 C 9.5 21.75 11.996094 23.023438 13.53125 26.46875 C 13.597656 26.886719 13.78125 27.5625 13.78125 27.5625 Z M 20.78125 19.625 L 23.78125 19.625 L 22 30.75 L 19.03125 30.75 Z M 36.8125 19.625 L 39.90625 19.625 L 42.1875 30.75 L 39.5 30.75 L 39.1875 29.15625 L 35.5 29.15625 L 34.90625 30.75 L 31.96875 30.75 Z M 6.25 19.65625 L 10.8125 19.65625 C 11.976563 19.65625 12.40625 20.75 12.40625 20.75 L 13.40625 25.8125 C 12.054688 21.453125 6.25 19.65625 6.25 19.65625 Z M 37.9375 22.84375 L 36.3125 27.03125 L 38.75 27.03125 Z">
+                                </path>
+                            </svg>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
+                                viewBox="0 0 50 50" style=" fill:#000000d6;" v-if="getCardType(cards.number) == 3">
+                                <path
+                                    d="M 5 7 C 2.242188 7 0 9.242188 0 12 L 0 38 C 0 40.757813 2.242188 43 5 43 L 45 43 C 47.757813 43 50 40.757813 50 38 L 50 12 C 50 9.242188 47.757813 7 45 7 Z M 23 15 L 26 15 C 31.523438 15 36 19.476563 36 25 C 36 30.523438 31.523438 35 26 35 L 23 35 C 17.484375 35 13 30.515625 13 25 C 13 19.484375 17.484375 15 23 15 Z M 23 17 C 18.589844 17 15 20.589844 15 25 C 15 29.410156 18.589844 33 23 33 C 27.410156 33 31 29.410156 31 25 C 31 20.589844 27.410156 17 23 17 Z M 21.34375 20.3125 L 21.34375 29.6875 C 19.398438 29.003906 18 27.179688 18 25 C 18 22.820313 19.398438 20.996094 21.34375 20.3125 Z M 24.65625 20.3125 C 26.601563 20.996094 28 22.820313 28 25 C 28 27.179688 26.601563 29.003906 24.65625 29.6875 Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <a href="./create-cards.html" v-if="allCards.length < 6" class="no-cards"><i class="material-symbols-rounded">add_card</i><span>Add Card</span></a>
+                </div>
+
+                <div class="card-data" id="card-data">
+                    <div class="card-texts data">
+                        <p>Card data</p>
+                        <i class="material-symbols-rounded">credit_card</i>
+                    </div>
+
+                    <div class="cards-style">
+                        <p class="data-title del-title"><span>CARD PREVIEW</span><i class="material-symbols-rounded del-toggle" @click="toggleDelete()">more_horiz <button class="del-btn" @click="disableCard()">delete Card</button></i></p>
+                        <div class="credit-card">
+                            <div class="flip">
+                                <div class="front"
+                                    :class="{'silver': cardColor == 'SILVER', 'golden': cardColor == 'GOLD'}">
+                                    <div class="strip-bottom"
+                                        :class="{'strip-bottom-silver': cardColor == 'SILVER', 'strip-bottom-golden': cardColor == 'GOLD'}">
+                                    </div>
+                                    <div class="strip-top"
+                                        :class="{'strip-top-silver': cardColor == 'SILVER', 'strip-top-golden': cardColor == 'GOLD'}">
+                                    </div>
+                                    <img src="./assets/mtn.svg" alt="logo" class="logo">
+                                    <div class="investor">{{cardType}} {{cardColor}}</div>
+                                    <div class="chip">
+                                        <div class="chip-line"></div>
+                                        <div class="chip-line"></div>
+                                        <div class="chip-line"></div>
+                                        <div class="chip-line"></div>
+                                        <div class="chip-main"></div>
+                                    </div>
+                                    <svg class="wave" viewBox="0 3.71 26.959 38.787" width="26.959" height="38.787"
+                                        fill="white">
+                                        <path
+                                            d="M19.709 3.719c.266.043.5.187.656.406 4.125 5.207 6.594 11.781 6.594 18.938 0 7.156-2.469 13.73-6.594 18.937-.195.336-.57.531-.957.492a.9946.9946 0 0 1-.851-.66c-.129-.367-.035-.777.246-1.051 3.855-4.867 6.156-11.023 6.156-17.718 0-6.696-2.301-12.852-6.156-17.719-.262-.317-.301-.762-.102-1.121.204-.36.602-.559 1.008-.504z">
+                                        </path>
+                                        <path
+                                            d="M13.74 7.563c.231.039.442.164.594.343 3.508 4.059 5.625 9.371 5.625 15.157 0 5.785-2.113 11.097-5.625 15.156-.363.422-1 .472-1.422.109-.422-.363-.472-1-.109-1.422 3.211-3.711 5.156-8.551 5.156-13.843 0-5.293-1.949-10.133-5.156-13.844-.27-.309-.324-.75-.141-1.114.188-.367.578-.582.985-.542h.093z">
+                                        </path>
+                                        <path
+                                            d="M7.584 11.438c.227.031.438.144.594.312 2.953 2.863 4.781 6.875 4.781 11.313 0 4.433-1.828 8.449-4.781 11.312-.398.387-1.035.383-1.422-.016-.387-.398-.383-1.035.016-1.421 2.582-2.504 4.187-5.993 4.187-9.875 0-3.883-1.605-7.372-4.187-9.875-.321-.282-.426-.739-.266-1.133.164-.395.559-.641.984-.617h.094zM1.178 15.531c.121.02.238.063.344.125 2.633 1.414 4.437 4.215 4.437 7.407 0 3.195-1.797 5.996-4.437 7.406-.492.258-1.102.07-1.36-.422-.257-.492-.07-1.102.422-1.359 2.012-1.075 3.375-3.176 3.375-5.625 0-2.446-1.371-4.551-3.375-5.625-.441-.204-.676-.692-.551-1.165.122-.468.567-.785 1.051-.742h.094z">
+                                        </path>
+                                    </svg>
+
+                                    <div class="credit-card-number">
+                                        <div class="section">{{splitCardNumber(cardNumber)}}</div>
+                                    </div>
+                                    <div class="end">
+                                        <span class="end-text">from:</span>
+                                        <span class="end-date ps-1" v-if="cardThruDate != ''"> {{formatDate(cardFromDate)}}</span>
+                                        <span class="end-date ps-1" v-if="cardThruDate == ''"> ##/##</span>
+                                        <span class="end-text ps-5">thru:</span>
+                                        <span class="end-date ps-1" :class="{'text-danger': currentDate > new Date(cardThruDate)}" v-if="cardThruDate != ''"> {{formatDate(cardThruDate)}}</span>
+                                        <span class="end-date ps-1" :class="{'text-danger': currentDate > new Date(cardThruDate)}" v-if="cardThruDate == ''"> ##/##</span>
+                                    </div>
+                                    <div class="credit-card-holder">{{cardHolder}}</div>
+                                    <div class="master">
+                                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48"
+                                            viewBox="0 0 50 50" style=" fill:#fff;" v-if="getCardType(cardNumber) == 4">
+                                            <path
+                                                d="M 5 7 C 2.25 7 0 9.25 0 12 L 0 38 C 0 40.75 2.25 43 5 43 L 45 43 C 47.75 43 50 40.75 50 38 L 50 12 C 50 9.25 47.75 7 45 7 Z M 5 9 L 45 9 C 46.667969 9 48 10.332031 48 12 L 48 38 C 48 39.667969 46.667969 41 45 41 L 5 41 C 3.332031 41 2 39.667969 2 38 L 2 12 C 2 10.332031 3.332031 9 5 9 Z M 29.6875 19.40625 C 26.585938 19.40625 25 20.933594 25 22.875 C 25 26.386719 29.0625 25.914063 29.0625 27.71875 C 29.0625 28.023438 28.828125 28.75 27.125 28.75 C 25.417969 28.75 24.3125 28.09375 24.3125 28.09375 L 23.78125 30.46875 C 23.78125 30.46875 24.886719 31.09375 27 31.09375 C 29.113281 31.09375 32.03125 29.476563 32.03125 27.125 C 32.03125 24.296875 27.96875 24.074219 27.96875 22.8125 C 27.96875 22.167969 28.46875 21.6875 29.9375 21.6875 C 30.890625 21.6875 31.96875 22.40625 31.96875 22.40625 L 32.46875 19.96875 C 32.46875 19.96875 31.050781 19.40625 29.6875 19.40625 Z M 16.46875 19.625 L 13.78125 27.5625 C 13.78125 27.5625 13.597656 26.886719 13.53125 26.46875 C 11.996094 23.023438 9.5 21.75 9.5 21.75 L 11.875 30.75 L 15.125 30.75 L 19.625 19.625 Z M 20.78125 19.625 L 19.03125 30.75 L 22 30.75 L 23.78125 19.625 Z M 36.8125 19.625 L 31.96875 30.75 L 34.90625 30.75 L 35.5 29.15625 L 39.1875 29.15625 L 39.5 30.75 L 42.1875 30.75 L 39.90625 19.625 Z M 6.25 19.65625 C 6.25 19.65625 12.054688 21.453125 13.40625 25.8125 L 12.40625 20.75 C 12.40625 20.75 11.976563 19.65625 10.8125 19.65625 Z M 37.9375 22.84375 L 38.75 27.03125 L 36.3125 27.03125 Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48"
+                                            viewBox="0 0 50 50" style=" fill:#fff;" v-if="getCardType(cardNumber) == 5">
+                                            <path
+                                                d="M 5 7 C 2.25 7 0 9.25 0 12 L 0 38 C 0 40.75 2.25 43 5 43 L 45 43 C 47.75 43 50 40.75 50 38 L 50 12 C 50 9.25 47.75 7 45 7 Z M 5 9 L 45 9 C 46.667969 9 48 10.332031 48 12 L 48 38 C 48 39.667969 46.667969 41 45 41 L 5 41 C 3.332031 41 2 39.667969 2 38 L 2 12 C 2 10.332031 3.332031 9 5 9 Z M 17 13 C 10.382813 13 5 18.382813 5 25 C 5 31.617188 10.382813 37 17 37 C 20.078125 37 22.875 35.816406 25 33.90625 C 27.125 35.816406 29.925781 37 33 37 C 39.617188 37 45 31.617188 45 25 C 45 18.382813 39.617188 13 33 13 C 29.925781 13 27.125 14.183594 25 16.09375 C 22.875 14.183594 20.078125 13 17 13 Z M 33 15 C 38.535156 15 43 19.464844 43 25 C 43 30.535156 38.535156 35 33 35 C 30.449219 35 28.109375 34.066406 26.34375 32.5 C 27.996094 30.441406 29 27.839844 29 25 C 29 22.160156 27.996094 19.558594 26.34375 17.5 C 28.109375 15.933594 30.449219 15 33 15 Z">
+                                            </path>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48"
+                                            viewBox="0 0 50 50" style=" fill:#fff;" v-if="getCardType(cardNumber) == 3">
+                                            <path
+                                                d="M 5 7 C 2.25 7 0 9.25 0 12 L 0 38 C 0 40.75 2.25 43 5 43 L 45 43 C 47.75 43 50 40.75 50 38 L 50 12 C 50 9.25 47.75 7 45 7 Z M 5 9 L 45 9 C 46.667969 9 48 10.332031 48 12 L 48 38 C 48 39.667969 46.667969 41 45 41 L 5 41 C 3.332031 41 2 39.667969 2 38 L 2 12 C 2 10.332031 3.332031 9 5 9 Z M 23 15 C 17.488281 15 13 19.488281 13 25 C 13 30.511719 17.488281 35 23 35 L 26 35 C 31.523438 35 36 30.523438 36 25 C 36 19.476563 31.523438 15 26 15 Z M 23 17 C 27.429688 17 31 20.570313 31 25 C 31 29.429688 27.429688 33 23 33 C 18.570313 33 15 29.429688 15 25 C 15 20.570313 18.570313 17 23 17 Z M 21.34375 20.3125 C 19.398438 20.996094 18 22.820313 18 25 C 18 27.179688 19.398438 29.003906 21.34375 29.6875 Z M 24.65625 20.3125 L 24.65625 29.6875 C 26.601563 29.003906 28 27.179688 28 25 C 28 22.820313 26.601563 20.996094 24.65625 20.3125 Z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="back">
+                                    <div class="strip-black"></div>
+                                    <div class="ccv">
+                                        <label>ccv</label>
+                                        <div>{{getCVV(cardCVV)}}</div>
+                                    </div>
+                                    <div class="terms">
+                                        <p>This credit-card is property of Patagonia Bank. Misuse is criminal offence.
+                                            If
+                                            found, please return to Patagonia Bank or to the nearest bank with X logo.
+                                        </p>
+                                        <p>Use of this credit-card is subject to the credit credit-card agreement.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-info">
+                        <div class="number">
+                            <p class="data-title">CARD NUMBER</p>
+                            <span id="card-number-copy">{{splitCardNumber(cardNumber)}}<i class="material-symbols-rounded" @click="copyCardNumber()">content_copy</i><span class="message shown">Number Copied!</span></span>
+                        </div>
+                        <div class="expire">
+                            <p class="data-title">EXPIRE DATE</p>
+                            <span v-if="cardThruDate != ''">{{formatDate(cardThruDate)}}</span>
+                            <span v-if="cardThruDate == ''">##/##</span>
+                        </div>
+                        <div class="cvv">
+                            <p class="data-title">CVV</p>
+                            <span>{{getCVV(cardCVV)}}</span>
+                        </div>
+                    </div>
+
+                    <div class="extra-card-info">
+                        <div class="benefits">
+                            <div class="diners-club" v-if="getCardType(cardNumber) == 3">
+                                <p class="data-title">Diners club Benefits</p>
+                                <div class="benefit-box">
+                                    <div class="img">
+                                        <img src="https://images.unsplash.com/photo-1628527304948-06157ee3c8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <span>Our Cards</span>
+                                        <p>Every country has its own culture, character and card offerings. Check your local Club for the cards available in your area.</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-box">
+                                    <div class="img">
+                                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2074&q=80" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <span>Global Acceptance</span>
+                                        <p>Nearly 40 million merchants on a network that expands across 200+ countries and territories. Wherever you go, explore with us.</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-box">
+                                    <div class="img">
+                                        <img src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <span>Lounge Access</span>
+                                        <p>Relax and recover in more than 1,000 Diners Club airport lounges near and far.</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-box">
+                                    <div class="img">
+                                        <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <span>Exclusive Offers</span>
+                                        <p>Experience shopping, dining, travel and hotel Privileges with promotions just for Clubmembers.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="visa" v-if="getCardType(cardNumber) == 4">
+                                <p class="data-title">Visa Benefits</p>
+                                <div class="benefit-box">
+                                    <div class="img">
+                                        <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1174&q=80" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <span>Visa Luxury Hotel Collection</span>
+                                        <p>Exclusive benefits and offers on the best stays with the Visa Luxury Hotel Collection.</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-box">
+                                    <div class="img">
+                                        <img src="https://images.unsplash.com/photo-1606768666853-403c90a981ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <span>Travel Safely & Securely</span>
+                                        <p>With the coverage you can rely on, travel confidently with Visa Infinite.</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-box">
+                                    <div class="img">
+                                        <img src="https://images.unsplash.com/photo-1464038008305-ee8def75f234?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <span>Visa Digital Concierge</span>
+                                        <p>Make your day-to-day simpler and travel easier with 24/7 assistance from Visa Concierge.</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-box">
+                                    <div class="img">
+                                        <img src="https://images.unsplash.com/photo-1573855619003-97b4799dcd8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <span>Purchase protection</span>
+                                        <p>Enjoy price protection in the event of finding the same item purchased for a lower price within 30 days of the transaction.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="master-card" v-if="getCardType(cardNumber) == 5">
+                                <p class="data-title">Mastercard Benefits</p>
+                                <div class="benefit-box">
+                                    <div class="img">
+                                        <img src="https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <span>Premium Experiences</span>
+                                        <p>Enjoy the VIP treatment wherever you are with discounts on movie tickets and access to unforgettable experiences.</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-box">
+                                    <div class="img">
+                                        <img src="https://images.unsplash.com/photo-1474418397713-7ede21d49118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1153&q=80" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <span>Peace of Mind</span>
+                                        <p>Your World Elite Mastercard is here when you need it most, protecting you from identity theft and fraudulent purchases</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-box">
+                                    <div class="img">
+                                        <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <span>Mastercard Hotel Stay Guarantee</span>
+                                        <p>Book a three-star or higher hotel stay through the Mastercard Travel program, and should you encounter problems, a Lifestyle Manager will work to make it right.</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-box">
+                                    <div class="img">
+                                        <img src="https://images.unsplash.com/photo-1522199873717-bc67b1a5e32b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <span>Mastercard Airport Concierge</span>
+                                        <p>Dedicated meet-and-greet agent to escort you and your loved ones through the airport at 700+ locations worldwide.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="./scripts/cards.js"></script>
+</body>
+
+</html>

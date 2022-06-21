@@ -1,0 +1,490 @@
+.loans-body {
+    min-height: calc(100vh - 4rem);
+    margin: 0 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.loan-types {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    align-items: center;
+    flex: 1;
+}
+
+.type {
+    width: 100%;
+    height: 27rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem 1rem 2rem;
+    margin: 1rem 0 0;
+    align-items: center;
+    background: #3f3d561a;
+    border-radius: 10px;
+    position: relative;
+}
+
+.type p {
+    margin-bottom: 0;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.type p:after, .type p:before {
+    content: "";
+    display: block;
+    border-bottom: 2px solid #3f3d5642;
+}
+
+.type img {
+    width: 100%;
+    height: 13rem;
+    background: white;
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+
+.type span {
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 0.5rem;
+    font-weight: 600;
+    color: #6c6c6c;
+}
+
+.type input {
+    display: none;
+}
+
+.type label {
+    border: unset;
+    padding: 0.3rem 1rem;
+    background: #3f3d56;
+    border-radius: 10px;
+    color: #ebebee;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+
+:is(input, select):focus-visible {
+    outline: unset !important;
+}
+
+.loan-form-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: center;
+    margin: 1rem 0;
+    flex: 1;
+}
+
+.loan-form-box .loan-form, .loan-form-box .loan-recap, .approved, .declined {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ebebee;
+    padding: 2rem;
+    border-radius: 10px;
+    position: relative;
+    width: 100%;
+    animation: show 1s;
+}
+
+.loan-form-box .loan-form > div,  .loan-form-box .loan-recap > div{
+    flex-direction: column;
+    margin: 0.5rem 0;
+    align-items: center;
+}
+
+.loan-form-box .loan-recap h3 {
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.loan-form-box .loan-recap > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 10px;
+    width: 90%;
+}
+
+
+.loan-form-box .loan-form > div:first-child {
+    display: flex;
+}
+
+.loan-form-box .loan-form > div:not(:first-child) {
+    display: none;
+}
+
+.loan-form-box .loan-recap > div:last-child {
+    flex-direction: row;
+    gap: 1rem;
+    background: unset;
+    border-radius: unset;
+    padding: unset;
+}
+.loan-form-box .loan-form > div p, .loan-form-box .loan-recap > div p, .loan-form-box .loan-recap > div span{
+    text-align: center;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    margin: 0.5rem 0;
+    position: relative;
+}
+.loan-form-box .loan-recap > div p {
+    text-transform: uppercase;
+    margin: unset;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    font-size: 0.9rem;
+    width: 100%;
+    background: #3f3d56;
+    border-radius: 10px 10px 0 0;
+    color: white;
+    margin-bottom: 5px;
+}
+.loan-form-box .loan-recap > div span{
+    margin-top: unset;
+    font-size: 1rem;
+}
+.loan-form-box .loan-form > div p:after {
+    content: "";
+    display: block;
+    border-bottom: 2px solid #bebec6;
+    width: 50%;
+}
+
+.pay-span {
+    font-size: 0.8rem;
+    color: #3f3d5694;
+    margin: 0.2rem 0 0;
+}
+
+
+.form-selects {
+    padding: 0.3rem 0.1rem;
+    border: unset;
+    border-bottom: 2px solid black;
+    margin: 0.5rem 0 0;
+    background: #3f3d56;
+    color: #ebebee;
+    width: 11rem;
+}
+
+
+.click-animation {
+    display: flex !important;
+    animation: show 1.2s;
+}
+
+
+.input-span {
+    background: transparent;
+    border-bottom: 2px solid;
+    padding: 0.2rem;
+    width: 10rem;
+}
+
+.input-number {
+    border: unset;
+    background: transparent;
+    padding: 0rem 0.3rem;
+    width: 90%;
+}
+
+.input-number:focus-visible {
+    outline: unset;
+}
+
+
+.radio-payment-box div {
+    width: 12rem;
+    display: flex;
+    background: #3f3d56;
+    border-radius: 10px;
+    margin: 0.5rem 0 0;
+}
+.radio-payment-box div label {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    color: white;
+    border-right: 1px solid #e9ecef;
+    cursor: pointer;
+}
+
+.radio-payment-box div label:hover {
+    background: #8a85bb;
+    color: #ffffff;
+}
+
+.radio-payment-box div label:first-child, .radio-payment-box div label:first-child span {
+    border-radius: 10px 0px 0px 10px;
+}
+
+.radio-payment-box div label:last-child, .radio-payment-box div label:last-child span {
+    border-radius: 0px 10px 10px 0px;
+    border-right: unset;
+}
+
+.radio-payment-box div label input {
+    display: none;
+}
+
+.radio-payment-box div label span {
+    width: 100%;
+    text-align: center;
+    padding: 0.15rem;
+}
+
+.radio-payment-box div label input:checked + span {
+    background: #8a85bb;
+}
+
+.span-max {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+    background: #3f3d56;
+    padding: 0.1rem 0;
+    border-radius: 10px 10px 0 0;
+    color: white;
+    font-weight: 600;
+}
+
+.submit-btn {
+    padding: 0.2rem 0.5rem;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    background: #3f3d56;
+    color: #ebebee;
+    border: 2px solid #3f3d56;
+    border-radius: 10px;
+}
+
+.loader-box {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.approved, .declined {
+    display: none;
+}
+
+.approved i, .declined i {
+    font-size: 2.8rem;
+}
+
+.approved p, .declined p {
+    font-size: 1.3rem;
+}
+
+.approved span, .declined span {
+    margin-bottom: 1rem;
+}
+
+.approved a, .declined a {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    background: #3f3d56;
+    padding: 0.2rem 0.5rem;
+    text-transform: uppercase;
+    color: #ebebee;
+    border-radius: 10px;
+}
+
+
+
+/* MODAL LOADER */
+.lds-ring {
+    display: block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #3F3D56;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #3F3D56 transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+.display-IB {
+    display: flex;
+}
+
+.percentage {
+    content: '';
+    position: absolute;
+    background: #ff6584;
+    width: 4rem;
+    height: 3rem;
+    top: 0px;
+    right: 0px;
+    border-radius: 0 10px 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.percentage span {
+    color: white;
+    padding: unset;
+    line-height: 15px;
+}
+
+.percentage span:first-child {
+    font-size: 1.1rem;
+}
+
+.percentage span:last-child {
+    font-size: 0.8rem;
+}
+
+
+
+
+/* KEYFRAMES */
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+@media only screen and (min-width: 425px) {
+    .type {
+        width: 85%;
+    }
+
+    .loan-form-box .loan-form, .loan-form-box .loan-recap, .approved, .declined {
+        width: 85%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .loan-types {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .type {
+        width: 45%;
+        margin: 1rem 0.5rem 0;
+    }
+
+    .loan-form-box .loan-form, .loan-form-box .loan-recap, .approved, .declined {
+        width: 45%;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .type {
+        width: 30%;
+        justify-content: space-between;
+        margin: 1rem 0.5rem 0;
+    }
+
+    .loan-form-box .loan-recap, .loan-form-box .loan-form {
+        flex-direction: row;
+        width: 93%;
+        flex-wrap: wrap;
+        gap: 1rem 5px;
+    }
+
+    .approved, .declined {
+        width: 93%;
+    }
+
+    .loan-form-box .loan-recap h3 {
+        width: 100%;
+    }
+
+    .loan-form-box .loan-recap > div, .loan-form-box .loan-form > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        flex: 1;
+    }
+
+    .loan-form-box .loan-recap > div:last-child {
+        width: 100%;
+        flex: unset;
+        justify-content: center;
+        align-self: center;
+    }
+
+    .loan-form-box .loan-form > .submit-loan {
+        width: 100%;
+        flex: unset;
+    }
+
+    .approved i, .declined i {
+        font-size: 3rem;
+    }
+
+    .approved p, .declined p {
+        font-size: 1.5rem;
+    }
+
+    .approved a, .declined a {
+        font-size: 1rem;
+    }
+}

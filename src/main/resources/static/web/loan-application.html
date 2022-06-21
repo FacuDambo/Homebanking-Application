@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homebanking - Loan Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./assets/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/loans.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="default-body" id="body-pd">
+            <header class="header" id="header">
+                <div class="header_toggle">
+                    <i class='material-symbols-rounded' id="header-toggle" @click="toggleNavbar()">menu</i>
+                </div>
+                <div class="header_info">
+                    <i class="material-symbols-rounded">account_circle</i>
+                    <div class="d-flex flex-column">
+                        <span>{{userName}}</span>
+                        <span>{{userEmail}}</span>
+                    </div>
+                </div>
+            </header>
+            <div class="l-navbar" id="nav-bar">
+                <nav class="nav">
+                    <div> <a href="./index.html" class="nav_logo"> <img src="./assets/mtn.svg" alt="mtn"
+                                class="header-icon"> <span class="nav_logo-name">Patagonia Bank</span> </a>
+                        <div class="nav_list">
+                            <a href="./index.html" class="nav_link">
+                                <i class='material-symbols-rounded'>home</i>
+                                <span class="nav_name">Home</span>
+                            </a>
+                            <a href="./accounts.html" class="nav_link">
+                                <i class='material-symbols-rounded'>grid_view</i>
+                                <span class="nav_name">Dashboard</span>
+                            </a>
+                            <a href="./account.html" class="nav_link">
+                                <i class='material-symbols-rounded'>currency_exchange</i>
+                                <span class="nav_name">Transactions</span>
+                            </a>
+                            <a href="./cards.html" class="nav_link">
+                                <i class="material-symbols-rounded">credit_card</i>
+                                <span class="nav_name">Cards</span>
+                            </a>
+                            <a href="./transfers.html" class="nav_link">
+                                <i class='material-symbols-rounded'>payments</i>
+                                <span class="nav_name">Transfers</span>
+                            </a>
+                            <a href="#" class="nav_link">
+                                <i class="material-symbols-rounded">real_estate_agent</i>
+                                <span class="nav_name">Loans</span>
+                            </a>
+                            <a href="" class="nav_link">
+                                <i class='material-symbols-rounded'>support_agent</i>
+                                <span class="nav_name">Support</span>
+                            </a>
+                        </div>
+                    </div> <span href="" class="nav_link" @click.stop="signOut()"> <i class='material-symbols-rounded'>logout</i> <span class="nav_name">SignOut</span> </span>
+                </nav>
+            </div>
+
+            <div class="loader-index loader--active">
+                <div class="loader__icon">
+                    <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px"
+                        viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+                        <path opacity="0.2" fill="#fff"
+                            d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z">
+                        </path>
+                        <path fill="#fff"
+                            d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0C22.32,8.481,24.301,9.057,26.013,10.047z">
+                        </path>
+                        <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20"
+                            to="360 20 20" dur="0.5s" repeatCount="indefinite"></animateTransform>
+                    </svg>
+                </div>
+                <div class="loader__tile"></div>
+                <div class="loader__tile"></div>
+                <div class="loader__tile"></div>
+                <div class="loader__tile"></div>
+                <div class="loader__tile"></div>
+            </div>
+
+            <div class="loans-body">
+                <form class="loan-types">
+                    <div class="type" v-for="loans in loanTypes">
+                        <img src="./assets/undraw_for_sale_re_egkk.svg" alt="loan-img" v-if="loans.name == 'Mortgage'">
+                        <img src="./assets/undraw_investing_re_bov7.svg" alt="loan-img" v-if="loans.name == 'Personal'">
+                        <img src="./assets/undraw_by_my_car_ttge.svg" alt="loan-img" v-if="loans.name == 'Car'">
+                        <p>{{loans.name}}</p>
+                        <span v-if="loans.name == 'Mortgage'">Get the house of your dreams with a single click!</span>
+                        <span v-if="loans.name == 'Personal'">Want to start a bussines? We can make it possible</span>
+                        <span v-if="loans.name == 'Car'">It's time to hit the road! Get a car and live the adventure</span>
+                        <label>
+                            {{loans.name}}
+                            <input type="radio" name="loanObj" id="loanObj" :value="loans" @click="changeData(loans)">
+                        </label>
+                        <div class="percentage">
+                            <span>{{loans.percentage}}%</span>
+                            <span>interest</span>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="loan-form-box" id="loan-form-box">
+                    <form class="loan-form">
+                        <div class="loan-type-box">
+                            <p>SELECT LOAN TYPE</p>
+                            <select v-model="selectLoan" @change="triggerAnimation('.radio-payment-box'); solicitedAmount = ''; changeLoanData"
+                                class="form-selects">
+                                <option value="Select loan type">Select loan type</option>
+                                <option v-for="loans in loanTypes" :value="loans">{{loans.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="radio-payment-box">
+                            <p>SELECT PAYMENTS</p>
+                            <div @click.once="triggerAnimation('.amount-box')">
+                                <label v-for="(payments, index) in mortgage" v-if="selectLoanType == 'Mortgage'"
+                                    class="radio-label">
+                                    <input type="radio" name="Mortgage" :value="payments" v-model="paymentAmount">
+                                    <span>{{payments}}</span>
+                                </label>
+
+                                <label v-for="payments in personal" v-if="selectLoanType == 'Personal'">
+                                    <input type="radio" name="Personal" :value="payments" v-model="paymentAmount">
+                                    <span>{{payments}}</span>
+                                </label>
+
+                                <label v-for="payments in car" v-if="selectLoanType == 'Car'">
+                                    <input type="radio" name="Car" :value="payments" v-model="paymentAmount">
+                                    <span>{{payments}}</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="amount-box">
+                            <p>SELECT AMOUNT</p>
+                            <span class="input-span">
+                                $
+                                <input type="number" 
+                                placeholder="Select Amount" 
+                                class="input-number"
+                                v-for="loans in loanTypes"
+                                @input="triggerAnimation('.account-box'); resetValue($event)"
+                                v-show="selectLoanType == loans.name"
+                                min="1" :max="loans.maxAmount"
+                                v-model="solicitedAmount">
+                            </span>
+                            <span class="pay-span">You will pay: ${{calcPayment}}</span>
+
+                        </div>
+
+                        <div class="account-box">
+                            <p>SELECT ACCOUNT</p>
+                            <select v-model="selectedAccount" class="form-selects"
+                                @change="triggerAnimation('.submit-loan')">
+                                <option value="Select account">Select account</option>
+                                <option v-for="accounts in accounts">{{accounts.number}}</option>
+                            </select>
+                        </div>
+
+                        <div class="submit-loan">
+                            <input type="button" value="Request Loan" class="submit-btn" @click.prevent="toggleLoanRecap()">
+                        </div>
+
+                        <span v-for="loans in loanTypes" v-show="selectLoanType == loans.name" class="span-max">Max amount: {{loans.maxAmount}}</span>
+                    </form>
+
+                    <form class="loan-recap hidden">
+                        <h3>Loan recap</h3>
+                        <div>
+                            <p>Type:</p>
+                            <span>{{selectLoanType}}</span>
+                        </div>
+                        <div>
+                            <p>Payments:</p>
+                            <span>{{paymentAmount}}</span>
+                        </div>
+                        <div>
+                            <p>Total:</p>
+                            <span>${{calcPayment}}</span>
+                        </div>
+                        <div>
+                            <p>Payment p/m:</p>
+                            <span>${{calcTotal}}</span>
+                        </div>
+                        <div>
+                            <p>Account:</p>
+                            <span>{{selectedAccount}}</span>
+                        </div>
+                        <div>
+                            <input type="button" @click.prevent="toggleLoanRecap()" value="Cancel" class="submit-btn">
+                            <input type="submit" class="submit-btn" value="Request" @click.prevent="requestLoan()">
+                        </div>
+                    </form>
+                    
+                    <div class="loader-box">
+                        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                        <span>Processing...</span>
+                    </div>
+
+                    <div class="approved">
+                        <i class="material-symbols-rounded">check_circle</i>
+                        <p>Loan Approved!</p>
+                        <span>Thank you for trusting us!</span>
+                        <a href="./accounts.html">Back to Dashboard</a>
+                    </div>
+
+                    <div class="declined">
+                        <i class="material-symbols-rounded">error</i>
+                        <p>Loan Declined</p>
+                        <span>{{errorMessage}}</span>
+                        <a href="./loan-application.html">Try again</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="./scripts/loan-application.js"></script>
+</body>
+
+</html>
