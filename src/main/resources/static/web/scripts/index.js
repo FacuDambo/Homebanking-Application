@@ -119,6 +119,8 @@ Vue.createApp({
                 if (err.response) {
                     wrong.classList.add("activated")
                 }
+
+                console.log(err);
             })
         },
 

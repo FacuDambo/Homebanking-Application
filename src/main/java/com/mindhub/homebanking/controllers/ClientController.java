@@ -63,8 +63,8 @@ public class ClientController {
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
         Account account = new Account(number, 0, LocalDateTime.now(), AccountType.SAVING , client, false);
 
-        accountService.saveAccount(account);
         clientService.saveClient(client);
+        accountService.saveAccount(account);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
