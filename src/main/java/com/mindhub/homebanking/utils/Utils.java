@@ -27,7 +27,7 @@ public final class Utils {
         } while (intArray.contains(number));
         intArray.add(number);
 
-        return 0;
+        return number;
     }
 
     public static int getRandomRepeat(int min, int max) {

@@ -80,9 +80,9 @@
 .account-transactions {
     margin: 2rem 1rem 0;
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     flex: 1;
+    justify-content: flex-start;
 }
 
 .transaction-box {
@@ -101,11 +101,13 @@
 
 .img-container {
     display: flex;
+    flex: 1;
 }
 .img-container img{
     width: 100%;
     padding: 1rem 2rem 0;
     height: 15rem;
+    align-self: flex-end;
 }
 .icon-trans {
     grid-area: icon-trans;

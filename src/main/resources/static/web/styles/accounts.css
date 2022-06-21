@@ -454,6 +454,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    flex: 1;
 }
 
 .advertisement {
@@ -772,6 +773,10 @@
     .loan:last-child {
         margin-bottom: unset;
     }
+
+    .no-loans {
+        margin: 0 1rem 2rem;
+    }
 }
 
 
@@ -880,6 +885,10 @@
         width: 100%;
         justify-content: space-between;
         height: unset;
+    }
+
+    .no-loans {
+        margin: 0 1rem 1rem;
     }
 
     .advertisement {
