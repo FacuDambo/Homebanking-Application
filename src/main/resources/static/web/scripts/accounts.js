@@ -30,7 +30,7 @@ Vue.createApp({
     },
 
     created() {
-        axios.get("http://localhost:8080/api/clients/current")
+        axios.get("/api/clients/current")
             .then(res => {
                 this.datos = res.data
                 this.loans = res.data.loans
@@ -99,7 +99,7 @@ Vue.createApp({
         
         signOut(){
             axios.post('/api/logout')
-            .then(res => window.location.href = "http://localhost:8080/web/index.html")
+            .then(res => window.location.href = "/web/index.html")
         },
 
         createAccountView(id){
@@ -110,7 +110,7 @@ Vue.createApp({
         },
 
         createAccount(typeAccount){
-            axios.post("http://localhost:8080/api/clients/current/accounts/", `accountType=${typeAccount}`)
+            axios.post("/api/clients/current/accounts/", `accountType=${typeAccount}`)
                 .then(res => {
                     let loader = document.querySelector('.loader-index')
                     loader.classList.add('loader--active')

@@ -107,7 +107,7 @@
                 </div>
 
                 <div class="balance-box">
-                    <a v-for="account in clientAccounts" @click="getAccountOnClick(account, $event)" :href="'http://localhost:8080/web/account.html?id=' + account.id">
+                    <a v-for="account in clientAccounts" @click="getAccountOnClick(account, $event)" :href="'./account.html?id=' + account.id">
                         <div class="dashboard-balance" v-if="clientAccounts.length == 1">
                             <span>Your Balance:</span>
                             <span>{{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(account.balance)}}</span>

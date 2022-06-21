@@ -23,7 +23,7 @@ Vue.createApp({
     },
 
     created() {
-        axios.get("http://localhost:8080/api/clients/current")
+        axios.get("/api/clients/current")
             .then(res => {
                 this.allCards = res.data.cards
                 this.allCards.sort((a, b) => a.cardType - b.cardType)
@@ -135,7 +135,7 @@ Vue.createApp({
 
         signOut(){
             axios.post('/api/logout')
-            .then(res => window.location.href = "http://localhost:8080/web/index.html")
+            .then(res => window.location.href = "../index.html")
         },
 
         disableCard() {

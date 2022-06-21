@@ -13,7 +13,7 @@ Vue.createApp({
     },
 
     created() {
-        axios.get("http://localhost:8080/api/authenticated")
+        axios.get("/api/authenticated")
         .then(res => {
             if (res.data == "authenticated") {
                 this.clientLoggedIn = true
@@ -92,7 +92,7 @@ Vue.createApp({
                 'accept': 'application/xml'
                 }
             })
-            .then(res => window.location.href = "http://localhost:8080/web/accounts.html")
+            .then(res => window.location.href = "../accounts.html")
             .catch((err) => {
                 if (err.response) {
                     wrong.classList.add("activated")
@@ -113,7 +113,7 @@ Vue.createApp({
                     'content-type':'application/x-www-form-urlencoded'
                     }
                 })
-                .then(res => window.location.href = "http://localhost:8080/web/accounts.html")
+                .then(res => window.location.href = "../accounts.html")
             })
             .catch((err) => {
                 if (err.response) {
@@ -124,7 +124,7 @@ Vue.createApp({
 
         signOut(){
             axios.post('/api/logout')
-            .then(res => window.location.href = "http://localhost:8080/web/index.html")
+            .then(res => window.location.href = "../index.html")
         },
     },
     

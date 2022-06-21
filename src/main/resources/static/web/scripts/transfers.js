@@ -22,7 +22,7 @@ Vue.createApp({
     },
 
     created() {
-        axios.get("http://localhost:8080/api/clients/current")
+        axios.get("/api/clients/current")
             .then(res => {
                 //Get all the data from the logged in client
                 this.data = res.data
@@ -109,7 +109,7 @@ Vue.createApp({
             let error = document.querySelector(".error-box")
             let success = document.querySelector(".success-box")
 
-            axios.post("http://localhost:8080/api/transactions", 
+            axios.post("/api/transactions", 
             `amount=${this.amountOwn}&description=${this.descriptionOwn}&category=${this.categoryOwn}&origin=${this.originAccountOwn}&destination=${this.destinationAccountOwn}` ,
             {headers:{'content-type':'application/x-www-form-urlencoded'}})
             .then(res => {
@@ -138,7 +138,7 @@ Vue.createApp({
             let error = document.querySelector(".error-box2")
             let success = document.querySelector(".success-box2")
 
-            axios.post("http://localhost:8080/api/transactions", 
+            axios.post("/api/transactions", 
             `amount=${this.amountOther}&description=${this.descriptionOther}&category=${this.categoryOther}&origin=${this.originAccountOther}&destination=${this.destinationAccountOther}` ,
             {headers:{'content-type':'application/x-www-form-urlencoded'}})
             .then(res => {
@@ -163,7 +163,7 @@ Vue.createApp({
 
         signOut(){
             axios.post('/api/logout')
-            .then(res => window.location.href = "http://localhost:8080/web/index.html")
+            .then(res => window.location.href = "../index.html")
         },
     },
 

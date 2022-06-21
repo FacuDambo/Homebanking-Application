@@ -21,7 +21,7 @@ Vue.createApp({
     },
 
     created() {
-        axios.get("http://localhost:8080/api/clients/current")
+        axios.get("/api/clients/current")
             .then(res => {
                 this.data = res.data
 
@@ -34,7 +34,7 @@ Vue.createApp({
                 this.userEmail = res.data.email
             })
 
-        axios.get("http://localhost:8080/api/loans")
+        axios.get("/api/loans")
             .then(res => {
                 this.loanTypes = res.data
 
@@ -128,7 +128,7 @@ Vue.createApp({
                 number: this.selectedAccount,
             }
 
-            axios.post('http://localhost:8080/api/loans', obj)
+            axios.post('/api/loans', obj)
             .then(res=> {
                 loaderBox.classList.add("display-IB")
                 form.classList.add("hidden")
@@ -153,7 +153,7 @@ Vue.createApp({
         
         signOut(){
             axios.post('/api/logout')
-            .then(res => window.location.href = "http://localhost:8080/web/index.html")
+            .then(res => window.location.href = "/web/index.html")
         },
     },
     

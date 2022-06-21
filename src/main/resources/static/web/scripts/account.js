@@ -15,7 +15,7 @@ Vue.createApp({
     },
 
     created() {
-        axios.get("http://localhost:8080/api/clients/current")
+        axios.get("/api/clients/current")
             .then(res => {
                 //Get all accounts, sort them and filter them by non disabled
                 this.clientAccounts = res.data.accounts.sort((a, b) => a.id - b.id)
@@ -27,7 +27,7 @@ Vue.createApp({
                 this.userEmail = res.data.email
             })
 
-        axios.get(`http://localhost:8080/api/accounts/${getID}`)
+        axios.get(`/api/accounts/${getID}`)
             .then(res => {
                 //Get a specific account by id ^
                 this.datos = res.data
@@ -60,7 +60,7 @@ Vue.createApp({
         signOut(){
             //Sign out from account
             axios.post('/api/logout')
-            .then(res => window.location.href = "http://localhost:8080/web/index.html")
+            .then(res => window.location.href = "/web/index.html")
         },
 
         formatDate(date) {

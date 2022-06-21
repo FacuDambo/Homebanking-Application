@@ -17,7 +17,7 @@ Vue.createApp({
     },
 
     created() {
-        axios.get("http://localhost:8080/api/clients")
+        axios.get("/api/clients")
             .then(res => {
                 this.datos = res.data
                 let loader = document.querySelector(".loader")
@@ -29,7 +29,7 @@ Vue.createApp({
 
     methods: {
         addClient() {
-            axios.post("http://localhost:8080/rest/clients", {
+            axios.post("/rest/clients", {
                 firstName: this.nombre,
                 lastName: this.apellido,
                 email: this.email,
@@ -55,7 +55,7 @@ Vue.createApp({
 
         signOut(){
             axios.post('/api/logout')
-            .then(res => window.location.href = "http://localhost:8080/web/index.html")
+            .then(res => window.location.href = "../index.html")
         },
 
         deleteClient(params) {
