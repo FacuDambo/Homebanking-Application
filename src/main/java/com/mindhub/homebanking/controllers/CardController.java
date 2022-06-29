@@ -1,18 +1,20 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.CardDTO;
-import com.mindhub.homebanking.models.Card;
-import com.mindhub.homebanking.models.CardColor;
-import com.mindhub.homebanking.models.CardType;
-import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.dtos.PaymentApplicationDTO;
+import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.CardService;
 import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import static com.mindhub.homebanking.utils.Utils.getRandomLong;
@@ -27,6 +29,10 @@ public class CardController {
     private CardService cardService;
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private TransactionService transactionService;
 
     @GetMapping("/cards")
     public List<CardDTO> getCards() {
@@ -82,5 +88,61 @@ public class CardController {
         }
 
         return new ResponseEntity<>("not authenticated", HttpStatus.ACCEPTED);
+    }
+
+    @CrossOrigin
+    @Transactional
+    @PostMapping ("/cards/payments")
+    public ResponseEntity<Object> paymentsPostman(@RequestBody PaymentApplicationDTO payment, Authentication authentication){
+
+        if(payment.getNumberCard() == 0 || payment.getDescription().isEmpty()){
+            return new ResponseEntity<>("Missing data",HttpStatus.FORBIDDEN);
+        }
+
+        Card card = cardService.getCardByNumber(payment.getNumberCard());
+
+        if(card == null){
+            return new ResponseEntity<>("The card is invalid",HttpStatus.FORBIDDEN);
+        }
+        Client client = card.getClient();
+        Account account = client.getAccounts().stream().filter(account1 -> account1.getBalance()> payment.getAmount()).findFirst().orElse(null);
+
+        if(payment.getCvv() <= 0){
+            return new ResponseEntity<>("The cvv is wrong",HttpStatus.FORBIDDEN);
+        }
+
+        if(payment.getAmount() <= 0){
+            return new ResponseEntity<>("Invalid amount",HttpStatus.FORBIDDEN);
+        }
+
+        if (payment.getCvv() != card.getCvv()){
+            return new ResponseEntity<>("The cvv does not match the cvv of the card",HttpStatus.FORBIDDEN);
+        }
+
+        if(card.getThruDate().isBefore(LocalDate.now())){
+            return new ResponseEntity<>("The card is expired",HttpStatus.FORBIDDEN);
+        }
+
+        if (account == null){
+            return new ResponseEntity<>("The account associated with the card is not available",HttpStatus.FORBIDDEN);
+        }
+
+        if (account.getBalance()<=0 ){
+            return new ResponseEntity<>("Account cannot have 0 balance",HttpStatus.FORBIDDEN);
+
+        }
+
+        if (account.getBalance() < payment.getAmount()){
+            return new ResponseEntity<>("Insufficient balance to carry out this operation",HttpStatus.FORBIDDEN);
+        }
+
+
+        account.setBalance(account.getBalance()- payment.getAmount());
+        accountService.saveAccount(account);
+
+        transactionService.saveTransaction(new Transaction(TransactionType.DEBIT, -payment.getAmount(), payment.getDescription() +" "+payment.getNumberCard(), "Other", LocalDateTime.now(), account.getBalance() ,account));
+
+
+        return new ResponseEntity<>("Payment accepted",HttpStatus.ACCEPTED);
     }
 }

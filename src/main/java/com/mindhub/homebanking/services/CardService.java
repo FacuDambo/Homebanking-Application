@@ -10,5 +10,6 @@ public interface CardService {
     List<CardDTO> getCards();
     CardDTO getCard(@PathVariable Long id);
     Card findById(Long id);
+    Card getCardByNumber(long number);
     void saveCard(Card card);
 }

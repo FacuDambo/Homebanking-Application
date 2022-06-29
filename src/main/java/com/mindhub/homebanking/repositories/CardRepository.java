@@ -9,5 +9,5 @@ import java.util.List;
 
 @RepositoryRestResource
 public interface CardRepository extends JpaRepository<Card, Long> {
-
+    Card findByNumber(long number);
 }

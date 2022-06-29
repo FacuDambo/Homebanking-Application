@@ -23,6 +23,11 @@ public class CardServiceImplement implements CardService {
     }
 
     @Override
+    public Card getCardByNumber(long number) {
+        return cardRepository.findByNumber(number);
+    }
+
+    @Override
     public CardDTO getCard(Long id) {
         return cardRepository.findById(id).map(CardDTO::new).orElse(null);
     }

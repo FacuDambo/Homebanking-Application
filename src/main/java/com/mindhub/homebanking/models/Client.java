@@ -1,9 +1,6 @@
 package com.mindhub.homebanking.models;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.common.util.StringHelper;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,10 +13,7 @@ public class Client {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
+    private String firstName, lastName, email, password;
 
     //ONE TO MANY ===========================================
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
@@ -32,9 +26,9 @@ public class Client {
     private Set<Card> cards = new HashSet<>();
 
 
-    public Client(){} //IMPORTANT
+    public Client(){} //IMPORTANT, Sobrecarga de metodos
 
-     public Client(String firstName, String lastName, String email, String password) {
+    public Client(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

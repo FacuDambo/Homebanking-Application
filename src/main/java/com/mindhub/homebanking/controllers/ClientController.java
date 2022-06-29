@@ -4,6 +4,7 @@ import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,12 @@ public class ClientController {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
 
+        if (firstName.length() > 20 || lastName.length() > 20 || email.length() > 50 || password.length() > 15 || password.length() < 8) {
+            return new ResponseEntity<>("Data is too long", HttpStatus.FORBIDDEN);
+        } //CAMBIAR
+
         if (clientService.findByEmail(email) != null) {
-            return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
         }
 
         String number = "VIN-" + getRandomInteger(1, 99999999);

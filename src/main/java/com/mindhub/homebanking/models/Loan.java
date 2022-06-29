@@ -16,7 +16,6 @@ public class Loan {
     private long id;
     private String name;
     private int maxAmount;
-
     private int percentage;
 
     @ElementCollection
