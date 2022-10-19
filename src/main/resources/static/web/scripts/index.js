@@ -86,12 +86,7 @@ Vue.createApp({
         logIn(){
             let wrong = document.querySelector(".wrong-password")
 
-            axios.post('/api/login',`email=${this.email}&password=${this.password}`,
-            {headers:{
-                'content-type':'application/x-www-form-urlencoded',
-                'accept': 'application/xml'
-                }
-            })
+            axios.post('/api/login',`email=${this.email}&password=${this.password}`)
             .then(res => window.location.href = "/web/accounts.html")
             .catch((err) => {
                 if (err.response) {
@@ -103,16 +98,8 @@ Vue.createApp({
         signUp(){
             let wrong = document.querySelector(".email-used")
 
-            axios.post('/api/clients',`firstName=${this.name}&lastName=${this.lastName}&email=${this.signEmail}&password=${this.signPassword}`,
-            {headers:{
-                'content-type':'application/x-www-form-urlencoded'
-                }
-            }).then((response) => {
-                axios.post('/api/login',`email=${this.signEmail}&password=${this.signPassword}`,
-                {headers:{
-                    'content-type':'application/x-www-form-urlencoded'
-                    }
-                })
+            axios.post('/api/clients',`firstName=${this.name}&lastName=${this.lastName}&email=${this.signEmail}&password=${this.signPassword}`).then((response) => {
+                axios.post('/api/login',`email=${this.signEmail}&password=${this.signPassword}`)
                 .then(res => window.location.href = "/web/accounts.html")
             })
             .catch((err) => {
